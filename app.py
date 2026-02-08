@@ -1,3 +1,28 @@
+import os
+import urllib.request
+
+REPO_OWNER = "zunairzafar"
+REPO_NAME = "Brain-Tumor-Classification"
+RELEASE_TAG = "v1.0"
+ASSET_NAME = "resnet18_brain_tumor.pt"
+
+MODEL_DIR = "models"
+MODEL_PATH = os.path.join(MODEL_DIR, ASSET_NAME)
+
+def ensure_model():
+    os.makedirs(MODEL_DIR, exist_ok=True)
+    if os.path.exists(MODEL_PATH):
+        return
+
+    url = f"https://github.com/{REPO_OWNER}/{REPO_NAME}/releases/download/{RELEASE_TAG}/{ASSET_NAME}"
+    urllib.request.urlretrieve(url, MODEL_PATH)
+
+ensure_model()
+
+
+
+######################################################################
+
 import streamlit as st
 import torch
 import torch.nn as nn
